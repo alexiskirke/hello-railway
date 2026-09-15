@@ -1,0 +1,13 @@
+{
+  "name": "hello-railway",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Starter app with GitHub + Railway deploy",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
