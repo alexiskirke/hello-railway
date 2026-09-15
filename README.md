@@ -1,8 +1,8 @@
-# Hello Railway
+# The Conjuring Fruit
 
-A small Node.js service set up to deploy on Railway from GitHub.
+An unofficial iPhone-style fruit machine homage to The Conjuring. Original artwork, hold, nudge, credits, and classic machine sounds.
 
-- Homepage: `/`
+- Game: `/`
 - Health check: `/health`
 
 ## Local
@@ -13,6 +13,12 @@ npm start
 
 The app listens on `PORT` (default `3000`).
 
-## Railway
+## Play
 
-Railway reads `railway.json` and starts the app with `npm start`. After the GitHub repo is connected, pushes to `main` deploy automatically.
+- Each spin costs **$1**
+- Start with **$25**, or feed the machine **+$20**
+- **HOLD** lamps lock a reel for the next spin
+- **NUDGE** moves a reel one stop toward a payline
+- Three matching centre symbols pay according to the in-game paytable
+
+Pushes to `main` deploy on Railway.

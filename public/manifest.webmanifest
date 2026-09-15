@@ -1,0 +1,16 @@
+{
+  "name": "The Conjuring Fruit",
+  "short_name": "Conjuring",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#070504",
+  "theme_color": "#070504",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/app-icon.png",
+      "sizes": "1024x1024",
+      "type": "image/png"
+    }
+  ]
+}

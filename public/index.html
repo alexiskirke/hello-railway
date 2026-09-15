@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1, user-scalable=no"
+    />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="theme-color" content="#070504" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <title>The Conjuring Fruit</title>
+    <link rel="icon" href="/app-icon.png" />
+    <link rel="apple-touch-icon" href="/app-icon.png" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Share+Tech+Mono&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/css/game.css" />
+  </head>
+  <body>
+    <div class="vignette"></div>
+    <main class="cabinet" id="app">
+      <header class="marquee">
+        <p class="marquee-kicker">Unofficial homage</p>
+        <h1>The Conjuring</h1>
+        <p class="marquee-sub">Fruit Machine</p>
+      </header>
+
+      <section class="meters" aria-live="polite">
+        <div class="meter">
+          <span>Credits</span>
+          <strong id="credits">$25.00</strong>
+        </div>
+        <div class="meter win">
+          <span>Win</span>
+          <strong id="win">$0.00</strong>
+        </div>
+        <div class="meter">
+          <span>Spin</span>
+          <strong id="cost">$1.00</strong>
+        </div>
+      </section>
+
+      <p class="banner" id="banner">Insert coin and pull the reels</p>
+
+      <section class="reel-house" aria-label="Reels">
+        <div class="payline-bar left"></div>
+        <div class="reels" id="reels"></div>
+        <div class="payline-bar right"></div>
+      </section>
+
+      <section class="holds" id="holds"></section>
+      <section class="nudges" id="nudges"></section>
+
+      <section class="status-row">
+        <div class="lamp" id="hold-lamp"><i></i> HOLD</div>
+        <div class="lamp" id="nudge-lamp"><i></i> NUDGES <em id="nudge-count">0</em></div>
+      </section>
+
+      <section class="controls">
+        <button type="button" class="aux-btn" id="paytable-btn">Pays</button>
+        <button type="button" class="spin-btn" id="spin-btn">
+          <span>SPIN</span>
+          <small>$1</small>
+        </button>
+        <button type="button" class="aux-btn" id="insert-btn">+$20</button>
+      </section>
+
+      <section class="toolbar">
+        <button type="button" class="text-btn" id="mute-btn">Sound on</button>
+        <button type="button" class="text-btn" id="reset-btn">Reset bank</button>
+      </section>
+    </main>
+
+    <div class="gate" id="gate">
+      <img src="/app-icon.png" alt="" />
+      <h2>The Conjuring Fruit</h2>
+      <p>Hold. Nudge. Pray.</p>
+      <button type="button" id="enter-btn">Tap to play</button>
+    </div>
+
+    <aside class="sheet" id="paytable" hidden>
+      <div class="sheet-card">
+        <h3>Paytable · 3 on the line</h3>
+        <ul id="pay-list"></ul>
+        <p class="sheet-note">Hold keeps a reel. Nudge moves a reel one stop. Payline is the centre row.</p>
+        <button type="button" class="aux-btn" id="close-pays">Close</button>
+      </div>
+    </aside>
+
+    <script src="/js/audio.js"></script>
+    <script src="/js/game.js"></script>
+  </body>
+</html>
