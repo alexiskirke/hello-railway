@@ -2,12 +2,19 @@
   "name": "hello-railway",
   "version": "1.0.0",
   "private": true,
-  "description": "Starter app with GitHub + Railway deploy",
+  "description": "The Conjuring fruit machine for Railway",
   "scripts": {
     "start": "node server.js",
-    "dev": "node server.js"
+    "dev": "node server.js",
+    "test": "node --test test/offline.test.js",
+    "test:online": "node test/online.js",
+    "test:online:prod": "node test/online.js https://hello-railway-production-88ac.up.railway.app/?mute=1"
   },
   "engines": {
     "node": ">=20"
+  },
+  "devDependencies": {
+    "puppeteer-core": "^24.34.0"
   }
 }
+

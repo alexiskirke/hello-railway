@@ -1,19 +1,19 @@
 (() => {
-  const SYMBOLS = [
-    { id: "inverted", name: "Inverted Crucifix", file: "/symbols/inverted.png", payout: 25 },
-    { id: "nun", name: "The Nun", file: "/symbols/nun.png", payout: 40 },
-    { id: "doll", name: "Annabelle", file: "/symbols/doll.png", payout: 50 },
-    { id: "cross", name: "Crucifix", file: "/symbols/cross.png", payout: 12 },
-    { id: "hag", name: "Old Woman Demon", file: "/symbols/hag.png", payout: 20 },
-    { id: "demon", name: "Old Demon Man", file: "/symbols/demon.png", payout: 20 },
-  ];
+  const {
+    SYMBOLS,
+    REEL_COUNT,
+    SPIN_COST,
+    START_BANK,
+    INSERT,
+    wrap,
+    money,
+    scoreLine,
+    applyNudge,
+  } = window.FruitEngine;
 
-  const REEL_COUNT = 3;
   const LOOPS = 8;
-  const SPIN_COST = 1;
-  const START_BANK = 25;
-  const INSERT = 20;
   const STORAGE_KEY = "conjuring-fruit-bank";
+  const quiet = new URLSearchParams(window.location.search).has("mute");
 
   const audio = new window.MachineAudio();
   const state = {
@@ -24,7 +24,7 @@
     held: [false, false, false],
     nudges: 0,
     positions: [0, 1, 2],
-    muted: false,
+    muted: quiet,
   };
 
   const els = {
@@ -62,14 +62,6 @@
 
   function saveBank() {
     window.localStorage.setItem(STORAGE_KEY, String(state.bank));
-  }
-
-  function money(value) {
-    return `$${value.toFixed(2)}`;
-  }
-
-  function wrap(index) {
-    return (index + SYMBOLS.length * 20) % SYMBOLS.length;
   }
 
   function cellSize() {
@@ -118,11 +110,7 @@
   }
 
   function score() {
-    const line = payline();
-    if (line[0].id === line[1].id && line[1].id === line[2].id) {
-      return { amount: line[0].payout, jackpot: line[0].id === "doll" || line[0].id === "nun", label: `Three ${line[0].name}` };
-    }
-    return { amount: 0, jackpot: false, label: "" };
+    return scoreLine(state.positions);
   }
 
   function flashWins(isWin) {
@@ -247,7 +235,7 @@
     audio.unlock();
     audio.nudge();
     state.nudges -= 1;
-    state.positions[reel] = wrap(state.positions[reel] + direction);
+    state.positions[reel] = applyNudge(state.positions[reel], direction);
     applyStrip(reel, state.positions[reel], true, 160);
     navigator.vibrate?.(12);
     settle(true);
@@ -350,10 +338,16 @@
 
   function enter() {
     audio.unlock();
+    audio.setMuted(state.muted);
     audio.coin();
     els.gate.remove();
     layoutStrips();
     updateLamps();
+  }
+
+  if (state.muted) {
+    audio.setMuted(true);
+    els.mute.textContent = "Sound off";
   }
 
   buildReels();
