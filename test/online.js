@@ -8,9 +8,9 @@ const chrome = process.env.CHROME_PATH || "/usr/bin/google-chrome-stable";
 async function waitForSpinIdle(page) {
   await page.waitForFunction(
     () => {
-      const spin = document.getElementById("spin-btn");
       const banner = document.getElementById("banner");
-      return spin && !spin.disabled && banner && !/spinning/i.test(banner.textContent || "");
+      const text = banner ? banner.textContent || "" : "";
+      return !/spinning/i.test(text);
     },
     { timeout: 12000 }
   );
@@ -47,7 +47,16 @@ async function main() {
 
     const before = await page.$eval("#credits", (el) => el.textContent.trim());
     await page.click("#spin-btn");
+    await page.waitForFunction(
+      () => /spinning|Held reels locked/i.test(document.getElementById("banner")?.textContent || ""),
+      { timeout: 4000 }
+    );
     await waitForSpinIdle(page);
+    await page.waitForFunction(
+      (beforeCredits) => document.getElementById("credits")?.textContent.trim() !== beforeCredits,
+      { timeout: 4000 },
+      before
+    );
     const afterSpin = await page.$eval("#credits", (el) => el.textContent.trim());
     const beforeN = Number.parseFloat(before.slice(1));
     const afterN = Number.parseFloat(afterSpin.slice(1));
